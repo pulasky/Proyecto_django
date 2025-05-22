@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}Inventario{% endblock %}
+{% block content %}
+<style>
+tr.force-bg-danger > td, tr.force-bg-danger > th {
+    background-color: #dc3545 !important;
+    color: #fff !important;
+}
+tr.force-bg-warning > td, tr.force-bg-warning > th {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+}
+</style>
+<h1 style="display: flex; align-items: center; gap: 2rem;">
+    Inventario de Lotes
+    <span style="font-size: 1rem; display: flex; gap: 1rem;">
+        <span style="display: flex; align-items: center; gap: 0.3rem;">
+            <span style="display: inline-block; width: 1.2em; height: 1.2em; background: #dc3545; border-radius: 0.2em; border: 1px solid #a71d2a;"></span>
+            <span>Stock 0 o caducado</span>
+        </span>
+        <span style="display: flex; align-items: center; gap: 0.3rem;">
+            <span style="display: inline-block; width: 1.2em; height: 1.2em; background: #ffc107; border-radius: 0.2em; border: 1px solid #b38600;"></span>
+            <span>Stock 1 o caduca en ≤ 30 días</span>
+        </span>
+    </span>
+</h1>
+<a href="{% url 'nuevo_lote' %}" class="btn btn-success mb-3">Nueva Entrada</a>
+<div class="table-responsive">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Reactivo</th>
+            <th>CAS</th>
+            <th>Categoría</th>
+            <th>Fecha entrada</th>
+            <th>Lote proveedor</th>
+            <th>Ud.</th>
+            <th>Capacidad</th>
+            <th>Medida</th>
+            <th>LOTE Eumedica</th>
+            <th>Caducidad</th>
+            <th>Log book</th>
+            <th>Pág.</th>
+            <th>Registrado por</th>
+            <th>Stock</th>
+            <th>Observaciones</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for lote in lotes %}
+        {% if lote.stock is not None and lote.stock == 0 %}
+            <tr class="force-bg-danger">
+        {% elif lote.dias_restantes is not None and lote.dias_restantes < 0 %}
+            <tr class="force-bg-danger">
+        {% elif lote.stock == 1 %}
+            <tr class="force-bg-warning">
+        {% elif lote.dias_restantes is not None and lote.dias_restantes <= 30 and lote.dias_restantes >= 0 %}
+            <tr class="force-bg-warning">
+        {% else %}
+            <tr>
+        {% endif %}
+            <td>{{ lote.codigo_base.codigo }}</td>
+            <td>{{ lote.codigo_base.reactivo }}</td>
+            <td>{{ lote.codigo_base.cas }}</td>
+            <td>{{ lote.codigo_base.categoria }}</td>
+            <td>{{ lote.fecha_entrada }}</td>
+            <td>{{ lote.lote_proveedor }}</td>
+            <td>{{ lote.ud }}</td>
+            <td>{{ lote.capacidad }}</td>
+            <td>{{ lote.medida }}</td>
+            <td>{{ lote.lote_eumedica }}</td>
+            <td>{{ lote.caducidad }}</td>
+            <td>{{ lote.log_book }}</td>
+            <td>{{ lote.pag }}</td>
+            <td>{{ lote.registrado_por }}</td>
+            <td>{{ lote.stock }}</td>
+            <td>{{ lote.observaciones }}</td>
+            <td>
+                <a href="{% url 'editar_lote' lote.id %}" class="btn btn-sm btn-warning">Editar</a>
+                <a href="{% url 'eliminar_lote' lote.id %}" class="btn btn-sm btn-danger">Borrar</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="17">No hay lotes registrados.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

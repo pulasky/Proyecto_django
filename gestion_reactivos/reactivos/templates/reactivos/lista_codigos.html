@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Lista de Códigos de Reactivos{% endblock %}
+{% block content %}
+<h1>Lista de Códigos de Reactivos</h1>
+<a href="{% url 'nuevo_reactivo' %}" class="btn btn-primary mb-2">Añadir nuevo código</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Reactivo</th>
+            <th>CAS</th>
+            <th>Categoría</th>
+            <th>Caducidad tras apertura</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for codigo in codigos %}
+        <tr>
+            <td>{{ codigo.codigo }}</td>
+            <td>{{ codigo.reactivo }}</td>
+            <td>{{ codigo.cas }}</td>
+            <td>{{ codigo.categoria }}</td>
+            <td>{{ codigo.caducidad_tras_apertura }}</td>
+            <td>
+                <a href="{% url 'editar_reactivo' codigo.id %}" class="btn btn-sm btn-warning">Editar</a>
+                <a href="{% url 'eliminar_reactivo' codigo.id %}" class="btn btn-sm btn-danger">Borrar</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="6">No hay códigos registrados.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

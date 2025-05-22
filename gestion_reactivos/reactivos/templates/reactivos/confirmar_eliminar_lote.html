@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Eliminar Lote{% endblock %}
+{% block content %}
+<h1>¿Eliminar lote?</h1>
+<p>¿Estás seguro de que deseas eliminar el lote <strong>{{ lote }}</strong>?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+  <a href="{% url 'home' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

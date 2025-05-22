@@ -1,0 +1,31 @@
+<!-- filepath: c:\Proyecto\gestion_reactivos\reactivos\templates\reactivos\formulario_salida.html -->
+{% extends 'base.html' %}
+{% block title %}Nueva Salida{% endblock %}
+{% block content %}
+<h1>Nueva Salida de Reactivo</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="codigo_base">Código / Reactivo</label>
+        {{ form.codigo_base }}
+    </div>
+    <div class="mb-3">
+        <label for="lote_eumedica">Lote Eumedica</label>
+        {{ form.lote_eumedica }}
+    </div>
+    <div class="mb-3">
+        <label for="cantidad_envases">Cantidad de envases que salen</label>
+        {{ form.cantidad_envases }}
+    </div>
+        <div class="mb-3">
+        <label for="registrado_por">Registrado por</label>
+        {{ form.registrado_por }}
+    </div>
+        <div class="mb-3">
+        <label for="observaciones">Observaciones</label>
+        {{ form.observaciones }}
+    </div>
+    <button type="submit" class="btn btn-success">Registrar salida</button>
+    <a href="{% url 'lista_salidas' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

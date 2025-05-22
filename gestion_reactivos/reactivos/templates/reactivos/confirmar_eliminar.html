@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Eliminar Código de Reactivo{% endblock %}
+{% block content %}
+<h1>¿Eliminar código de reactivo?</h1>
+<p>¿Estás seguro de que deseas eliminar el código <strong>{{ reactivo }}</strong>?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+  <a href="{% url 'lista_codigos' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

@@ -1,0 +1,53 @@
+<!-- filepath: c:\Proyecto\gestion_reactivos\reactivos\templates\reactivos\lista_salidas.html -->
+{% extends 'base.html' %}
+{% block title %}Salidas de Reactivos{% endblock %}
+{% block content %}
+<h1>Salidas de Reactivos</h1>
+<a href="{% url 'nueva_salida' %}" class="btn btn-success mb-3">Nueva Salida</a>
+<div class="table-responsive">
+<table class="table table-striped">
+<thead>
+    <tr>
+        <th>Fecha</th>
+        <th>Código</th>
+        <th>Reactivo</th>
+        <th>Lote Eumedica</th>
+        <th>Lote Proveedor</th>
+        <th>Ud.</th>
+        <th>Salidas acum.</th>
+        <th>Stock</th>
+        <th>Capacidad</th>
+        <th>Medida</th>
+        <th>Observaciones</th>
+        <th>Registrado por</th>
+        <th>Acciones</th> <!-- Nueva columna -->
+    </tr>
+</thead>
+<tbody>
+    {% for salida in salidas %}
+    <tr>
+        <td>{{ salida.fecha }}</td>
+        <td>{{ salida.codigo_base.codigo }}</td>
+        <td>{{ salida.codigo_base.reactivo }}</td>
+        <td>{{ salida.lote_eumedica }}</td>
+        <td>{{ salida.lote_proveedor }}</td>
+        <td>{{ salida.ud }}</td>
+        <td>{{ salida.salidas_acum }}</td>
+        <td>{{ salida.stock }}</td>
+        <td>{{ salida.capacidad }}</td>
+        <td>{{ salida.medida }}</td>
+        <td>{{ salida.observaciones }}</td>
+        <td>{{ salida.registrado_por }}</td>
+        <td>
+            <a href="{% url 'editar_salida' salida.id %}" class="btn btn-sm btn-warning">✏️ Editar</a>
+            <a href="{% url 'eliminar_salida' salida.id %}" class="btn btn-sm btn-danger"
+               onclick="return confirm('¿Estás seguro de que deseas eliminar esta salida?');">🗑 Eliminar</a>
+        </td>
+    </tr>
+        {% empty %}
+        <tr><td colspan="12">No hay salidas registradas.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

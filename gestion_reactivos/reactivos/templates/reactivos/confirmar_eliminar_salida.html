@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Eliminar Salida{% endblock %}
+{% block content %}
+<h2>¿Eliminar esta salida?</h2>
+<p><strong>Reactivo:</strong> {{ salida.codigo_base.reactivo }}</p>
+<p><strong>Fecha:</strong> {{ salida.fecha }}</p>
+<p><strong>Lote:</strong> {{ salida.lote_eumedica }}</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+  <a href="{% url 'lista_salidas' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
